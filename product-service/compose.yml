@@ -1,0 +1,15 @@
+service:
+  app:
+    container_name: app
+    image: contable-java:1.0.0
+    build:
+      context: '.'
+      dockerfile: Dockerfile
+    environment:
+      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'PGHOST=192.168.100.57'
+      - 'PGPORT=5432'
+      - 'PGDATABASE=contable'
+    ports:
+      - 8080:8080
