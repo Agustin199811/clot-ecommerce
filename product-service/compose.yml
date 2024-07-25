@@ -1,4 +1,4 @@
-service:
+services:
   app:
     container_name: app
     image: contable-java:1.0.0
