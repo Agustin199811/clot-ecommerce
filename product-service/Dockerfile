@@ -1,5 +1,4 @@
-# Stage 1: Build the application
-FROM amazoncorretto:17-alpine-jdk
+FROM amazoncorretto:21-alpine-jdk
 
 COPY --from=build /target/product-service-0.0.1-SNAPSHOT.jar app.jar
 
