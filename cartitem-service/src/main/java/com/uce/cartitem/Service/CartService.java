@@ -45,8 +45,16 @@ public class CartService implements CartServiceImp {
         return cartItemDto;
     }
 
+    private boolean isUserEnabled(String userId) {
+        UserDto user = restTemplate.getForObject(userServiceUrl + "/" + userId, UserDto.class);
+        return user != null && user.isEnabled();
+    }
+
     @Override
     public void savItem(CartItem cartItem) {
+        if (!isUserEnabled(cartItem.getUserId())) {
+            throw new RuntimeException("User account is not activated.");
+        }
 
         ProductDto product = restTemplate.getForObject(productServiceUrl + "/" + cartItem.getProductId(),
                 ProductDto.class);
@@ -77,6 +85,9 @@ public class CartService implements CartServiceImp {
 
     @Override
     public void removeFromCart(CartItem cartItem) {
+        if (!isUserEnabled(cartItem.getUserId())) {
+            throw new RuntimeException("User account is not activated.");
+        }
 
         restTemplate.put(productServiceUrl + "/" + cartItem.getProductId() + "/increaseStock", cartItem.getAmount());
 
