@@ -1,4 +1,4 @@
-name: Deploy Security on ECR
+name: Deploy Service Registry on ECR
 
 on:
   push:
